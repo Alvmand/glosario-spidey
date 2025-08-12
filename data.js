@@ -2,7 +2,17 @@
 // Lista de palabras para las tarjetas de vocabulario.
 // Los distractores respetan el tiempo/forma de la palabra en inglés.
 
-const WORDS = [
+// Función para mezclar un array (algoritmo Fisher-Yates)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Intercambia elementos
+  }
+  return array;
+}
+
+
+const WORDS_DATA = [
   // ===== Corregidas (conjugaciones coherentes) =====
   {
     palabra: "Earned",
@@ -404,3 +414,11 @@ const WORDS = [
   }
 ];
 
+// Mapeamos el array original para crear uno nuevo con las opciones mezcladas
+const WORDS = WORDS_DATA.map(word => {
+  // Creamos una copia del objeto para no modificar el original directamente
+  const newWord = { ...word };
+  // Mezclamos la copia del array de opciones
+  newWord.opciones = shuffleArray([...word.opciones]);
+  return newWord;
+});
