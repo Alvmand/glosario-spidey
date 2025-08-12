@@ -1,0 +1,176 @@
+/* ===== Tema claro y layout ===== */
+:root{
+  --bg:#fb5050;
+  --ink:#111827;
+  --muted:#002660;
+  --edge:#e5e7eb;
+  --front:#ffffff;
+  --back:#f8fafc;
+  --ok:#0e7c2f;   /* verde más oscuro */
+  --ok-bg:#c8f7c5;/* verde pastel tarjeta completa */
+  --bad:#8b0000;  /* rojo más oscuro */
+  --bad-bg:#f8d7da;/* rojo pastel tarjeta completa */
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  display:flex; flex-direction:column; gap:18px;
+}
+
+header{padding:22px 18px 0; text-align:center}
+h1{margin:0 0 8px; font-size:1.6rem}
+
+/* 🔹 Contenedor del marcador */
+.scoreboard{
+  display: inline-block;
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 0 4px rgba(0,0,0,0.15);
+}
+
+/* 🔹 Verde y rojo más contrastantes */
+.ok{
+  color:var(--ok);
+  font-weight:700;
+  text-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+.bad{
+  color:var(--bad);
+  font-weight:700;
+  text-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+header p{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+.toolbar{display:flex; gap:10px; justify-content:center; padding:4px 18px 0}
+.toolbar button{
+  border:1px solid var(--edge);
+  background:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+}
+.toolbar button:hover{border-color:#cbd5e1}
+
+.board{
+  padding:22px;
+  display:grid;
+  gap:18px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items:stretch;
+}
+
+/* ===== Card ===== */
+.flashcard{perspective:1200px; position:relative; height:420px}
+.card-inner{position:absolute; inset:0; transform-style:preserve-3d; transition:transform .6s ease}
+.flashcard.flipped .card-inner{transform:rotateY(180deg)}
+
+.face{
+  position:absolute; inset:0; backface-visibility:hidden;
+  border:1px solid var(--edge); border-radius:14px; overflow:hidden;
+  background:var(--front); display:flex; flex-direction:column
+}
+.back{transform:rotateY(180deg); background:var(--back)}
+
+.word{padding:14px 16px; border-bottom:1px solid var(--edge); background:#fff; font-weight:800; font-size:1.15rem}
+.prompt{padding:10px 16px; color:var(--muted); font-size:.95rem}
+.choices{display:grid; gap:10px; padding:0 16px 16px}
+.choices button{
+  padding:10px 12px; text-align:left; border:1px solid var(--edge);
+  background:#fff; border-radius:10px; cursor:pointer;
+}
+.choices button:hover{border-color:#94a3b8}
+.choices button:disabled{opacity:.65; cursor:not-allowed}
+
+/* ===== Estados ===== */
+.flashcard.bad .face.front{outline:2px solid var(--bad)}
+.flashcard.good .face.front{outline:2px solid var(--ok)}
+.flashcard.good .face.back{outline:2px solid var(--ok)}
+
+.flashcard.good .face.front,
+.flashcard.good .face.back{
+  background-color: var(--ok-bg);
+  color:#000;
+  border-color: var(--ok);
+}
+
+.flashcard.bad .face.front,
+.flashcard.bad .face.back{
+  background-color: var(--bad-bg);
+  color:#000;
+  border-color: var(--bad);
+}
+
+/* Back content */
+.meta{padding:14px 16px; display:grid; gap:10px}
+.row{display:grid; grid-template-columns:130px 1fr; gap:10px}
+.row .k{font-size:.78rem; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.3px}
+.row .v{font-size:1rem}
+.example{margin-top:auto; background:#fff; border-top:1px solid var(--edge); padding:14px 16px}
+
+/* ===== Ajustes responsive ===== */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px){
+  h1 { font-size: 1.4rem; }
+  .board { gap: 14px; padding: 16px; }
+  .flashcard { height: 400px; }
+}
+
+/* Móviles grandes */
+@media (max-width: 768px){
+  header { padding-top: 16px; }
+  h1 { font-size: 1.25rem; margin-bottom: 6px; }
+  .scoreboard { font-size: .95rem; padding: 6px 10px; }
+  .toolbar { gap: 8px; padding: 0 12px; }
+  .toolbar button { padding: 9px 12px; border-radius: 8px; }
+  .board { gap: 12px; padding: 14px; }
+  .flashcard { height: 380px; }
+  .word { font-size: 1.05rem; }
+}
+
+/* Móviles pequeños (360–480px) */
+@media (max-width: 480px){
+  /* Forzar una columna de cartas si el ancho es muy estrecho */
+  .board {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .flashcard { height: 360px; }
+  .choices { gap: 8px; padding: 0 12px 12px; }
+  .choices button {
+    padding: 10px;
+    font-size: .95rem;
+  }
+
+  .scoreboard {
+    display: inline-block;
+    padding: 6px 10px;
+    font-size: .9rem;
+  }
+
+  header p { font-size: .9rem; }
+}
+
+/* Móviles muy pequeños (≤ 340px) */
+@media (max-width: 340px){
+  .board { grid-template-columns: 1fr; }
+  .flashcard { height: 340px; }
+  .word { font-size: 1rem; }
+}
+

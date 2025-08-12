@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flashcards · Vocabulario de Spider-Man</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Flashcards para Vocabulario de Spider-Man</h1>
+
+    <!-- Marcador con fondo blanco y bordes redondeados -->
+    <div class="scoreboard">
+      <span class="ok">Aciertos: <strong id="scoreCorrect">0</strong></span>
+      <span class="bad">Errores: <strong id="scoreWrong">0</strong></span>
+    </div>
+
+    <p>Elige A/B/C/D. Acierto ⇒ <span class="ok">verde</span> y la carta gira. Error ⇒ <span class="bad">rojo</span> y no gira.</p>
+  </header>
+
+  <div class="toolbar">
+    <button id="shuffleBtn">Barajar</button>
+    <button id="resetBtn">Reiniciar</button>
+    <button id="failedBtn">Solo falladas</button>
+  </div>
+
+  <main class="board" id="board" aria-live="polite"></main>
+
+  <footer>
+    <small>Para añadir palabras, edita <code>data.js</code>. No necesitas tocar nada más.</small>
+  </footer>
+
+  <!-- Importar primero data.js y luego app.js -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
